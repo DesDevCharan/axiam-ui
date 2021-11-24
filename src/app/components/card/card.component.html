@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card_image">
+    <div class="plus" *ngIf="!card?.url && !card?.title">
+      +
+    </div>
+    <img [src]="card?.url" *ngIf="card?.url" />
+    <div class="card_title text-black" *ngIf="card?.title">
+      <p>{{card?.title}}</p>
+    </div>
+  </div>
+  <div class="card_remove text-black" *ngIf="card?.url || card?.title" (click)="onRemoveClick()">
+    <p><span>X</span> Remove</p>
+  </div>
+</div>

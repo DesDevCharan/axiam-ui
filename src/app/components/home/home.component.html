@@ -1,0 +1,35 @@
+<div class="home-wrapper">
+  <div class="cards">
+    <ng-container *ngFor="let card of softwares">
+      <ax-card [card]='card' (emitRemoveClick)="removeSelected($event)"></ax-card>
+    </ng-container>
+  </div>
+  <div class="form">
+    <div class="chip">1 of 3</div>
+    <p class="title">Lets add your internal tools</p>
+    <p class="description"> Search to quickly add products your team uses today. You'll be able t add as many as you
+      need later but for now lets add four.</p>
+    <div class="control">
+      <input class="input is-medium" placeholder="Search for any software..." [formControl]="control"
+        [appAutocomplete]="autocomplete">
+    </div>
+
+    <!-- <p style="color: black; font-size: 18px; margin-bottom: 10px;">{{control.value}}</p> -->
+
+    <app-autocomplete #autocomplete="appAutocomplete" #ac>
+      <ng-template appAutocompleteContent>
+        <ng-container *ngIf="(options | filter: control.value) as result">
+          <app-option *ngFor="let option of result" [value]="option.title">
+            <img [src]="option?.url" *ngIf="option?.url" class="img-options" /> {{ option.title }}
+          </app-option>
+          <app-option class="no-result" *ngIf="!result.length">No result...</app-option>
+        </ng-container>
+      </ng-template>
+    </app-autocomplete>
+
+    <button class="next" [disabled]="SELECTED === 0" (click)="submitSelected()">Next</button>
+  </div>
+  <p class="count">
+    {{SELECTED}} Products added.
+  </p>
+</div>
